@@ -35,7 +35,7 @@ setInterval(() => {
   socket.send(
     JSON.stringify(pianist.play()),
     1450,
-    "127.0.0.1",
+    "239.255.22.5",
     (err, bytes) => {
       if (err !== null) {
         console.error("ERR:", err);

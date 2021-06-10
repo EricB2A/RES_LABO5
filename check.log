@@ -1,0 +1,108 @@
+origin	https://github.com/EricB2A/RES_LABO5.git (fetch)
+origin	https://github.com/EricB2A/RES_LABO5.git (push)
+Starting auditor container "f3ae973d1386f48b5f43080e5c4013210f1d69375442790396bede046bff64f3"
+Starting auditor container "43c0c41d20f1f3500cde77d145cc2f88ad05be5c35b0e2e329354403a9fc4631"
+Starting auditor container "3b36309bb2549e069dcfb2b8956aa35119aea5fdb0eef5ccb9f954488d1994ad"
+Starting auditor container "bb0c830be428d6677ca743cb05484272a6ef078e9485c46ea4e85dee9377eb29"
+Starting auditor container "10574735cc9608bf32ccb9c336ea6456ce1d57101bc175b1598542661850555b"
+Starting auditor container "25861ada87569b606c754a648767e6d28224df8d810cdd4734dbe3e4c8bfdbe9"
+Starting auditor container "d01decd43b4748966ad6a397b1d17225d5f4942cda4b8ed7d6d4ccf72217b66f"
+Starting auditor container "286ab4d99075324353a7388a98d6d26da61f8ad809d460c79b0727df6e8a7ba7"
+Starting auditor container "3b8b8584898a1fdc9766c2f20255fd6d7a7d9f10b3cd05c1c5eeaff5c36a70f5"
+Starting auditor container "22140e4bcd0ed4590ffd81eca7db85db82bf685485fca664eb4e361fb2c7d80c"
+Starting auditor container "ae19a74fc014e559ffac215d1acfed7453f0be58a5d35e98825980f15c76d450"
+11 containers have been started.
+25861ada87569b606c754a648767e6d28224df8d810cdd4734dbe3e4c8bfdbe9 : /opt/app/musician.js,piano
+286ab4d99075324353a7388a98d6d26da61f8ad809d460c79b0727df6e8a7ba7 : /opt/app/musician.js,drum
+43c0c41d20f1f3500cde77d145cc2f88ad05be5c35b0e2e329354403a9fc4631 : /opt/app/musician.js,piano
+10574735cc9608bf32ccb9c336ea6456ce1d57101bc175b1598542661850555b : /opt/app/musician.js,piano
+3b8b8584898a1fdc9766c2f20255fd6d7a7d9f10b3cd05c1c5eeaff5c36a70f5 : /opt/app/musician.js,piano
+ae19a74fc014e559ffac215d1acfed7453f0be58a5d35e98825980f15c76d450 : /opt/app/musician.js,drum
+bb0c830be428d6677ca743cb05484272a6ef078e9485c46ea4e85dee9377eb29 : /opt/app/musician.js,flute
+d01decd43b4748966ad6a397b1d17225d5f4942cda4b8ed7d6d4ccf72217b66f : /opt/app/musician.js,piano
+22140e4bcd0ed4590ffd81eca7db85db82bf685485fca664eb4e361fb2c7d80c : /opt/app/musician.js,violin
+f3ae973d1386f48b5f43080e5c4013210f1d69375442790396bede046bff64f3 : /opt/app/musician.js,piano
+3b36309bb2549e069dcfb2b8956aa35119aea5fdb0eef5ccb9f954488d1994ad : npm,start,--prefix,/opt/app/
+Auditor=> { Id: '3b36309bb2549e069dcfb2b8956aa35119aea5fdb0eef5ccb9f954488d1994ad',
+  Names: [ '/trusting_merkle' ],
+  Image: 'res/auditor',
+  ImageID: 'sha256:a529c4f3e8471234a5c00204592b80760fdbabffa0d2ee525ff27a72d8733bcf',
+  Command: 'docker-entrypoint.sh npm start --prefix /opt/app/',
+  Created: 1623320862,
+  Ports: [],
+  Labels: {},
+  State: 'running',
+  Status: 'Up 5 seconds',
+  HostConfig: { NetworkMode: 'default' },
+  NetworkSettings: { Networks: { bridge: [Object] } },
+  Mounts: [] }
+Auditor validation: success: ["drum","drum","flute","piano","piano","piano","piano","piano","piano","violin"]
+There are 10 musicians, let's kill one
+killed 43c0c41d20f1f3500cde77d145cc2f88ad05be5c35b0e2e329354403a9fc4631
+Auditor=> { Id: '3b36309bb2549e069dcfb2b8956aa35119aea5fdb0eef5ccb9f954488d1994ad',
+  Names: [ '/trusting_merkle' ],
+  Image: 'res/auditor',
+  ImageID: 'sha256:a529c4f3e8471234a5c00204592b80760fdbabffa0d2ee525ff27a72d8733bcf',
+  Command: 'docker-entrypoint.sh npm start --prefix /opt/app/',
+  Created: 1623320862,
+  Ports: [],
+  Labels: {},
+  State: 'running',
+  Status: 'Up 13 seconds',
+  HostConfig: { NetworkMode: 'default' },
+  NetworkSettings: { Networks: { bridge: [Object] } },
+  Mounts: [] }
+Auditor validation: success: ["drum","drum","flute","piano","piano","piano","piano","piano","violin"]
+Scheduling a new test
+There are 9 musicians, let's kill one
+killed 286ab4d99075324353a7388a98d6d26da61f8ad809d460c79b0727df6e8a7ba7
+Auditor=> { Id: '3b36309bb2549e069dcfb2b8956aa35119aea5fdb0eef5ccb9f954488d1994ad',
+  Names: [ '/trusting_merkle' ],
+  Image: 'res/auditor',
+  ImageID: 'sha256:a529c4f3e8471234a5c00204592b80760fdbabffa0d2ee525ff27a72d8733bcf',
+  Command: 'docker-entrypoint.sh npm start --prefix /opt/app/',
+  Created: 1623320862,
+  Ports: [],
+  Labels: {},
+  State: 'running',
+  Status: 'Up 21 seconds',
+  HostConfig: { NetworkMode: 'default' },
+  NetworkSettings: { Networks: { bridge: [Object] } },
+  Mounts: [] }
+Auditor validation: success: ["drum","flute","piano","piano","piano","piano","piano","violin"]
+Scheduling a new test
+There are 8 musicians, let's kill one
+killed f3ae973d1386f48b5f43080e5c4013210f1d69375442790396bede046bff64f3
+Auditor=> { Id: '3b36309bb2549e069dcfb2b8956aa35119aea5fdb0eef5ccb9f954488d1994ad',
+  Names: [ '/trusting_merkle' ],
+  Image: 'res/auditor',
+  ImageID: 'sha256:a529c4f3e8471234a5c00204592b80760fdbabffa0d2ee525ff27a72d8733bcf',
+  Command: 'docker-entrypoint.sh npm start --prefix /opt/app/',
+  Created: 1623320862,
+  Ports: [],
+  Labels: {},
+  State: 'running',
+  Status: 'Up 29 seconds',
+  HostConfig: { NetworkMode: 'default' },
+  NetworkSettings: { Networks: { bridge: [Object] } },
+  Mounts: [] }
+Auditor validation: success: ["drum","flute","piano","piano","piano","piano","violin"]
+Scheduling a new test
+There are 7 musicians, let's kill one
+killed bb0c830be428d6677ca743cb05484272a6ef078e9485c46ea4e85dee9377eb29
+Auditor=> { Id: '3b36309bb2549e069dcfb2b8956aa35119aea5fdb0eef5ccb9f954488d1994ad',
+  Names: [ '/trusting_merkle' ],
+  Image: 'res/auditor',
+  ImageID: 'sha256:a529c4f3e8471234a5c00204592b80760fdbabffa0d2ee525ff27a72d8733bcf',
+  Command: 'docker-entrypoint.sh npm start --prefix /opt/app/',
+  Created: 1623320862,
+  Ports: [],
+  Labels: {},
+  State: 'running',
+  Status: 'Up 37 seconds',
+  HostConfig: { NetworkMode: 'default' },
+  NetworkSettings: { Networks: { bridge: [Object] } },
+  Mounts: [] }
+Auditor validation: success: ["drum","piano","piano","piano","piano","violin"]
+Scheduling a new test
+We have done all tests.

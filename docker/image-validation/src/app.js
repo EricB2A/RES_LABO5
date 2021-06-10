@@ -45,6 +45,7 @@ function startRandomMusician(musicianHasStarted) {
 function askAuditorForActiveInstruments(activeInstrumentsHaveBeenRetrieved) {
 	function invokeTcpInterface(auditorContainer, activeMusiciansHaveBeenFetched) {
 		//console.log(JSON.stringify(auditorContainer, null, ' '));
+		console.log("Auditor=>",auditorContainer)
 		var auditorIPAddress = auditorContainer.NetworkSettings.Networks.bridge.IPAddress;
 		var client = new net.Socket();
 		var payload = "";
@@ -97,7 +98,6 @@ function compareAuditorStateAgainstRunningContainers( checkDone ) {
 				return raw.instrument;
 			});
 			instrumentsSeenByAuditor.sort();
-			
 			/*
 			 * We use the chai.js npm module to make an assertion on the 2 results. What is seen in Docker should
 			 * be the same as what is seen by the auditor. If that's not true, then we will get an error and the

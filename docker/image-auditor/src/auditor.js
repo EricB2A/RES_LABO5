@@ -3,7 +3,6 @@ var net = require("net");
 
 const PORT_UDP = 1450;
 const PORT_TCP = 2205;
-const IP = "127.0.0.1";
 
 const INSTRUMENTS = {
   "ti-ta-ti": "piano",
@@ -16,8 +15,10 @@ const INSTRUMENTS = {
 const socket = dgram.createSocket("udp4");
 let musicians = new Map();
 
-console.log(new Date());
-socket.bind(PORT_UDP);
+socket.bind(PORT_UDP, function () {
+  console.log("Joining multicast group");
+  socket.addMembership("239.255.22.5");
+});
 
 socket.on("message", (message) => {
   let msg = JSON.parse(message);
@@ -25,9 +26,6 @@ socket.on("message", (message) => {
     instrument: INSTRUMENTS[msg.sound],
     lastMsg: new Date(),
   });
-  //   musicians.forEach((v, k) => {
-  //     console.log("key:", k, " value:", v);
-  //   });
 });
 
 const server = net.createServer();
@@ -41,7 +39,6 @@ server.on("connection", (socket) => {
       activeSince: v.lastMsg,
     });
   });
-
   socket.write(JSON.stringify(aryMusicians));
   socket.end();
 });
