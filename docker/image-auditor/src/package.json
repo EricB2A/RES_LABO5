@@ -1,6 +1,7 @@
 {
   "name": "auditor",
   "version": "1.0.0",
+  "type":"module",
   "description": "",
   "main": "auditor.js",
   "scripts": {

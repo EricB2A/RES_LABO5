@@ -1,9 +1,8 @@
-const dgram = require("dgram");
-var net = require("net");
+import dgram from "dgram";
+import net from "net";
+import { AUDITOR_CONFIG, NETWORK } from "./config.js";
 
-const PORT_UDP = 1450;
-const PORT_TCP = 2205;
-
+// Object containg the sounds of the instruments matching the instruments making them.
 const INSTRUMENTS = {
     "ti-ta-ti": "piano",
     pouet: "trumpet",
@@ -12,15 +11,23 @@ const INSTRUMENTS = {
     "boum-boum": "drum",
 };
 
-const socket = dgram.createSocket("udp4");
+// UDP connection
+const udpSocket = dgram.createSocket("udp4");
+
+// List of musicians that the auditor has heard the past five seconds
 let musicians = new Map();
 
-socket.bind(PORT_UDP, function () {
-    console.log("Joining multicast group");
-    socket.addMembership("239.255.22.5");
+/**
+ * Make the UDP connection on the specific multicast ip
+ */
+udpSocket.bind(NETWORK.udp.port, () => {
+    udpSocket.addMembership(NETWORK.udp.ip);
 });
 
-socket.on("message", (message) => {
+/**
+ * When receiving the sound/message from musician. Store the musician info in the map musicians
+ */
+udpSocket.on("message", (message) => {
     let msg = JSON.parse(message);
     musicians.set(msg.uuid, {
         instrument: INSTRUMENTS[msg.sound],
@@ -28,9 +35,15 @@ socket.on("message", (message) => {
     });
 });
 
-const server = net.createServer();
-server.listen(PORT_TCP);
-server.on("connection", (socket) => {
+
+// Create a TCP server to get the active musicians
+const tcpServer = net.createServer();
+tcpServer.listen(NETWORK.tcp.port);
+
+/**
+ * When a connection is etablished, send the list of active musicians
+ */
+tcpServer.on("connection", (tcpSocket) => {
     const aryMusicians = [];
     musicians.forEach((v, k) => {
         aryMusicians.push({
@@ -39,20 +52,24 @@ server.on("connection", (socket) => {
             activeSince: v.lastMsg,
         });
     });
-    socket.write(JSON.stringify(aryMusicians));
-    socket.end();
-});
-server.on("data", (socket) => {
-    console.log(socket);
-});
-server.on("error", (err) => {
-    throw err;
+    tcpSocket.write(JSON.stringify(aryMusicians));
+    tcpSocket.end();
 });
 
+/**
+ * Log tcpServer error if one occurs
+ */
+tcpServer.on("error", (err) => {
+    console.error(err)
+});
+
+/**
+ * Every second (or AUDITOR_CONFIG.clean_musicians_interval[ms]), remove all the inactive musicians
+ */
 setInterval(() => {
     musicians = new Map(
-        [...musicians].filter(([k, v]) => {
-            return Date.now() - v.lastMsg <= 5000;
+        [...musicians].filter(([_, v]) => {
+            return Date.now() - v.lastMsg <= AUDITOR_CONFIG.max_musician_delay;
         })
     );
-}, 1000);
+}, AUDITOR_CONFIG.clean_musicians_interval);

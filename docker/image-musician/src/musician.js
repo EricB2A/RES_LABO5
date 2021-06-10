@@ -1,7 +1,11 @@
 import { v4 as uuid } from "uuid";
 import dgram from "dgram";
+import { MUSICIAN_CONFIG, NETWORK } from "./config.js";
 
-const instruments = {
+/**
+ * List of instruments with their sounds
+ */
+const INSTRUMENTS = {
     piano: "ti-ta-ti",
     trumpet: "pouet",
     flute: "trulu",
@@ -9,38 +13,50 @@ const instruments = {
     drum: "boum-boum",
 };
 
+/**
+ * Musician class.
+ */
 class Musician {
     constructor(instrument) {
-        if (!Object.keys(instruments).includes(instrument)) {
+        // If the given instrument doesn't exist, throw error
+        if (!Object.keys(INSTRUMENTS).includes(instrument)) {
             throw new Error("L'instrument n'existe pas");
         }
-        this.instrument = { name: instrument, sound: instruments[instrument] };
+        // the the id of the musician and keep what instrument it's playing
+        this.instrument = instrument;
         this.id = uuid();
     }
 
+    /**
+     * Make the musician play. It's return the uuid of the musician with the sound of his instruements
+     * 
+     * @returns {Object} uuid and sound of his instruments
+     */
     play() {
-        const data = {
+        return {
             uuid: this.id,
-            sound: this.instrument.sound,
+            sound: INSTRUMENTS[this.instrument],
         };
-        console.log(data);
-        return data;
     }
 }
 
-const pianist = new Musician(process.argv[2]);
+const musician = new Musician(process.argv[2]);
 const socket = dgram.createSocket("udp4");
+
+/**
+ * Every second (or MUSICIAN_CONFIG.play_interval [ms]), make the musician plays on the UDP connection.
+ */
 setInterval(() => {
     socket.send(
-        JSON.stringify(pianist.play()),
-        1450,
-        "239.255.22.5",
-        (err, bytes) => {
+        JSON.stringify(musician.play()),
+        NETWORK.port,
+        NETWORK.ip,
+        (err, _) => {
+            // If an error occurs close the socket and clear the interval
             if (err !== null) {
-                console.error("ERR:", err);
                 socket.close();
                 clearInterval(this);
             }
         }
     );
-}, 1000);
+}, MUSICIAN_CONFIG.play_interval);
