@@ -1,8 +1,6 @@
 import { v4 as uuid } from "uuid";
 import dgram from "dgram";
 
-console.log(dgram)
-
 const instruments = {
   piano: "ti-ta-ti",
   trumpet: "pouet",
@@ -11,13 +9,14 @@ const instruments = {
   drum: "boum-boum",
 };
 
+const socket = dgram.createSocket("udp4");
+
 class Musician {
   constructor(instrument) {
     if (!Object.keys(instruments).includes(instrument)) {
       throw new Error("L'instrument n'existe pas");
     }
     this.instrument = { name: instrument, sound: instruments[instrument] };
-    console.log("constructor", this.instrument);
     this.id = uuid();
   }
 
@@ -30,7 +29,19 @@ class Musician {
     return data;
   }
 }
-
 const pianist = new Musician("piano");
 
-setInterval(pianist.play.bind(pianist), 1000);
+setInterval(() => {
+  socket.send(
+    JSON.stringify(pianist.play()),
+    1450,
+    "127.0.0.1",
+    (err, bytes) => {
+      if (err !== null) {
+        console.error("ERR:", err);
+        socket.close();
+        clearInterval(this);
+      }
+    }
+  );
+});
