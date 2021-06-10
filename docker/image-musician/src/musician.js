@@ -9,8 +9,6 @@ const instruments = {
   drum: "boum-boum",
 };
 
-const socket = dgram.createSocket("udp4");
-
 class Musician {
   constructor(instrument) {
     if (!Object.keys(instruments).includes(instrument)) {
@@ -29,8 +27,10 @@ class Musician {
     return data;
   }
 }
-const pianist = new Musician("piano");
 
+
+const pianist = new Musician(process.argv[2]);
+const socket = dgram.createSocket("udp4");
 setInterval(() => {
   socket.send(
     JSON.stringify(pianist.play()),
@@ -44,4 +44,4 @@ setInterval(() => {
       }
     }
   );
-});
+}, 1000);
