@@ -1,11 +1,11 @@
 {
   "name": "orchestra",
-  "type":"module",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "musician.js",
   "scripts": {
-    "start" :"node musician.js",
+    "start": "node musician.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
