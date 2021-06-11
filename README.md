@@ -9,20 +9,20 @@ When creating a musician, we specify the instrument we want him to play. He will
 ### Auditor  
 | ENV. VARIABLE                           | DESC.                                                                          | VALUE        |
 |-----------------------------------------|--------------------------------------------------------------------------------|--------------|
-| NETWORK.udp.ip                          | Multicast address. We listen to Musician, that will broadcast on this address. | 239.255.22.5 |
-| NETWORK.udp.port                        | Same as ip. We need to have the same port on the Musician endpoint.            | 1450         |
-| NETWORK.tcp.port                        | TCP port where active musicians are sent. Used by the validation protocol.     | 2205         |
-| AUDITOR_CONFIG.clean_musicians_interval | Time in ms when we update our list of active Musician.                         | 1000         |
-| AUDITOR_CONFIG.max_musician_delay       | Time in ms, under which a Musician is considered as active.                    | 5000         |
+| NETWORK\.udp.ip                          | Multicast address. We listen to Musician, that will broadcast on this address. | 239.255.22.5 |
+| NETWORK\.udp.port                        | Same as ip. We need to have the same port on the Musician endpoint.            | 1450         |
+| NETWORK\.tcp.port                        | TCP port where active musicians are sent. Used by the validation protocol.     | 2205         |
+| AUDITOR_CONFIG\.clean_musicians_interval | Time in ms when we update our list of active Musician.                         | 1000         |
+| AUDITOR_CONFIG\.max_musician_delay       | Time in ms, under which a Musician is considered as active.                    | 5000         |
 | INSTRUMENTS                             | For each noise, the instrument that made it.				   | `{"ti-ta-ti":"piano","pouet":"trumpet","trulu":"flute","gzi-gzi":"violin","boum-boum":"drum"}` |
 
 
 ### Musician  
 | ENV. VARIABLE                 | DESC.                                                                 | VALUE        |
 |-------------------------------|-----------------------------------------------------------------------|--------------|
-| NETWORK.udp.ip                | Multicast address. We make music for anyone listening here.           | 239.255.22.5 |
-| NETWORK.udp.port              | We make music for anyone listening on the combinaison IP:PORT.        | 1450         |
-| MUSICIAN_CONFIG.play_interval | Delay between each sound a musician will emit a sound if he's active. | 1000         |
+| NETWORK\.udp.ip                | Multicast address. We make music for anyone listening here.           | 239.255.22.5 |
+| NETWORK\.udp.port              | We make music for anyone listening on the combinaison IP:PORT.        | 1450         |
+| MUSICIAN_CONFIG\.play_interval | Delay between each sound a musician will emit a sound if he's active. | 1000         |
 | INSTRUMENTS                   | For each instrument, the noise it produces.                           | `{"piano":"ti-ta-ti", "trumpet":"pouet","flute":"trulu","violin":"gzi-gzi","drum":"boum-boum"}`|
 
 ## Tâche 1 : design the application architecture and protocols. 
