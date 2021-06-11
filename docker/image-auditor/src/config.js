@@ -25,8 +25,8 @@ export const AUDITOR_CONFIG = {
  */
 const INSTRUMENTS = {
     "ti-ta-ti": "piano",
-    pouet: "trumpet",
-    trulu: "flute",
+    "pouet": "trumpet",
+    "trulu": "flute",
     "gzi-gzi": "violin",
     "boum-boum": "drum",
 };
