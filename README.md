@@ -7,7 +7,7 @@ When creating a musician, we specify the instrument we want him to play. He will
 ## Configuration
 
 ### Auditor  
-This variables can be found in [`docker/image-auditor/src/config.js`](./docker/image-auditor/src/config.js)
+These variables can be found in [`docker/image-auditor/src/config.js`](./docker/image-auditor/src/config.js)
 | ENV. VARIABLE                           | DESC.                                                                          | VALUE        |
 |-----------------------------------------|--------------------------------------------------------------------------------|--------------|
 | NETWORK.udp.ip                          | Multicast address. We listen to Musician, that will broadcast on this address. | 239.255.22.5 |
@@ -18,7 +18,7 @@ This variables can be found in [`docker/image-auditor/src/config.js`](./docker/i
 | INSTRUMENTS                             | For each noise, the instrument that made it.				   | `{"ti-ta-ti":"piano","pouet":"trumpet","trulu":"flute","gzi-gzi":"violin","boum-boum":"drum"}` |
 
 ### Musician  
-This variables can be found in [`docker/image-musician/src/config.js`](./docker/image-musician/src/config.js)
+These variables can be found in [`docker/image-musician/src/config.js`](./docker/image-musician/src/config.js)
 | ENV. VARIABLE                 | DESC.                                                                 | VALUE        |
 |-------------------------------|-----------------------------------------------------------------------|--------------|
 | NETWORK\.udp.ip                | Multicast address. We make music for anyone listening here.           | 239.255.22.5 |
@@ -26,17 +26,23 @@ This variables can be found in [`docker/image-musician/src/config.js`](./docker/
 | MUSICIAN_CONFIG\.play_interval | Delay between each sound a musician will emit a sound if he's active. | 1000         |
 | INSTRUMENTS                   | For each instrument, the noise it produces.                           | `{"piano":"ti-ta-ti", "trumpet":"pouet","flute":"trulu","violin":"gzi-gzi","drum":"boum-boum"}`|
 
-### Images docker
+### Docker images
 We have the following docker images. 
 | NAME                          | DESC                                                         |
 |-------------------------------|--------------------------------------------------------------|
 | res/auditor                   | Docker image containing the **Auditor** nodejs application.  |
 | res/musician                  | Docker image containing the **Musician** nodejs application. |
 
+TODO: Usage example
+
 ## Tâche 1 : design the application architecture and protocols. 
 ### How can we represent the system in an architecture diagram, which gives information both about the Docker containers, the communication protocols and the commands?
-Here's a (simplified) schema reresenting the entities and how they communicate to each other.
-![schema](assets/schema.png).
+Here's a (simplified) schema representing the entities and how they communicate to each other.
+![schema](assets/schema.png)
+
+As we can see, the end user chooses the instruments he wants the musician to play, when running the docker. Then, the musician emits a sound with the instrument thanks to *UDP*. The auditor listen on the same UDP port and can obtains the sound and determine the instrument used.
+
+The validation block is kind of a "entité magique". We don't need to know what it does, but only how to communicate with it. And we communicate with it with *TCP* on the port 2205.
 ### Who is going to send UDP datagrams and when?
 The musicians will send a UDP datagram every seconds.
 ### Who is going to listen for UDP datagrams and what should happen when a datagram is received?
@@ -60,10 +66,10 @@ Inside the UDP sender / musician: we also use a js object as dictionary. But in 
 We can simply call the method `JSON.stringify(yourObject)`.
 ### What is npm?
 As its name states it (Node Package Manager), npm is a package manager for NodeJs.
-npm is so Javascript what Meaven is to Java and what Composer is to PHP.
+npm is to Javascript what Meaven is to Java and what Composer is to PHP.
 ### What is the npm install command and what is the purpose of the --save flag?
 The `npm install command` can have two purposes. If you use it without arguments it will simply install the needed packages specified into the `package.json` (which you be presents where you execute the command). If you specified a parameter after the command eg:`npm install trash`, it will install the package [trash](https://www.npmjs.com/package/trash). It will also add the dependency into the package.json for the next installations.
-According to this stackoverflow [post](https://stackoverflow.com/a/19578808/7657805), the flag `--save` is no more useful. It was used to add the package into the package.json but as previously mentioned, it's automacally done when using npm install without flag
+According to this [Stackoverflow post](https://stackoverflow.com/a/19578808/7657805), the flag `--save` is no more useful. It was used to add the package into the package.json but as previously mentioned, it's automacally done when using npm install without flag
 
 https://docs.npmjs.com/cli/v7/commands/npm-install#save
 ### How can we use the https://www.npmjs.com/ web site? 
@@ -75,7 +81,17 @@ With `setInterval(callback, interval)` that execute the callback function each �
 ### In Node.js, how can we emit UDP datagrams?
 We can use sockets from [dgram](https://nodejs.org/api/dgram.html). 
 ### In Node.js, how can we access the command line arguments?
-We can acces the command line arguments with `process.argv[<idx>]`
+We can acces the command line arguments with `process.argv[<idx>]`. 
+Please note that 
+ - `<idx> = 0` is the path to nodejs
+ - `<idx> = 1` is the file ran
+ - `<idx> > 1` are the arguments 
+So, if we run `node musician.js didgeridoo`, process.argv contains the following sequence :
+```
+0: /usr/local/bin/node
+1: path/to/musician.js
+2: didgeridoo
+```
 
 ## Tâche 3: package the "musician" app in a Docker image. 
 ### How do we define and build our own Docker image?
@@ -90,6 +106,7 @@ We can use the command `$ docker ps`
 We can kill a container by using the command `$ docker kill <container/name>` the container name can be found by using the `$ docker ps` command
 ### How can we check that our running containers are effectively sending UDP datagrams?
 We can use `console.log()`.
+TODO: Pas sûr de répondre à la question
 
 ## Tâche 4: implement an "auditor" Node.js application. 
 ### With Node.js, how can we listen for UDP datagrams in a multicast group?
