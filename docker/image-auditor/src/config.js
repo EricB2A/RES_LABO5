@@ -23,7 +23,7 @@ export const AUDITOR_CONFIG = {
 /**
  * Object containg the sounds of the instruments matching the instruments making them.
  */
-const INSTRUMENTS = {
+export const INSTRUMENTS = {
     "ti-ta-ti": "piano",
     "pouet": "trumpet",
     "trulu": "flute",

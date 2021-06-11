@@ -1,6 +1,6 @@
 import dgram from "dgram";
 import net from "net";
-import { AUDITOR_CONFIG, NETWORK } from "./config.js";
+import { AUDITOR_CONFIG, NETWORK, INSTRUMENTS} from "./config.js";
 
 // UDP connection
 const udpSocket = dgram.createSocket("udp4");

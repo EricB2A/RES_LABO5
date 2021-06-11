@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 import dgram from "dgram";
-import { MUSICIAN_CONFIG, NETWORK } from "./config.js";
+import { MUSICIAN_CONFIG, NETWORK, INSTRUMENTS } from "./config.js";
 
 /**
  * Musician class.
