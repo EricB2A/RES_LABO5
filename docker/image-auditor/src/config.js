@@ -18,3 +18,15 @@ export const AUDITOR_CONFIG = {
     clean_musicians_interval: 1000, // Millisecond | delay before the musicians container removes the inactive musicians
     max_musician_delay: 5000 // Millisecond | delay after which a musician is consider inactive if no sound is emitted from him. 
 }
+
+
+/**
+ * Object containg the sounds of the instruments matching the instruments making them.
+ */
+const INSTRUMENTS = {
+    "ti-ta-ti": "piano",
+    pouet: "trumpet",
+    trulu: "flute",
+    "gzi-gzi": "violin",
+    "boum-boum": "drum",
+};

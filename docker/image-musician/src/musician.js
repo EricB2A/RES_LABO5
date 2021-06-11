@@ -3,17 +3,6 @@ import dgram from "dgram";
 import { MUSICIAN_CONFIG, NETWORK } from "./config.js";
 
 /**
- * List of instruments with their sounds
- */
-const INSTRUMENTS = {
-    piano: "ti-ta-ti",
-    trumpet: "pouet",
-    flute: "trulu",
-    violin: "gzi-gzi",
-    drum: "boum-boum",
-};
-
-/**
  * Musician class.
  */
 class Musician {

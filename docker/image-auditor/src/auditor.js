@@ -2,15 +2,6 @@ import dgram from "dgram";
 import net from "net";
 import { AUDITOR_CONFIG, NETWORK } from "./config.js";
 
-// Object containg the sounds of the instruments matching the instruments making them.
-const INSTRUMENTS = {
-    "ti-ta-ti": "piano",
-    pouet: "trumpet",
-    trulu: "flute",
-    "gzi-gzi": "violin",
-    "boum-boum": "drum",
-};
-
 // UDP connection
 const udpSocket = dgram.createSocket("udp4");
 

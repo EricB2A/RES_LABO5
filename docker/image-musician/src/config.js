@@ -12,3 +12,15 @@ export const NETWORK = {
 export const MUSICIAN_CONFIG = {
     play_interval: 1000 // Millisecond | delay between each sound a musician will emit a sound if he's active.
 }
+
+
+/**
+ * List of instruments with their sounds
+ */
+export const INSTRUMENTS = {
+    piano: "ti-ta-ti",
+    trumpet: "pouet",
+    flute: "trulu",
+    violin: "gzi-gzi",
+    drum: "boum-boum",
+};
