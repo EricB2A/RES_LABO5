@@ -1,29 +1,37 @@
 # RES_LABO5
 ## How it works
-The auditor will listen to a UDP multicast ip:port. Everytime, he hears a musician playing, he will add the troubadour in his intern container which is containing active musicians. In addition, every second, the auditor will clean his artists container to keep only the one that he heard the past five seconds. It's als possible to etablish a TCP connection to get the musicians container of the auditor (in JSON format)
+The auditor will listen to a UDP multicast ip:port. Everytime, he hears a musician playing, he will add the troubadour in his intern container which is containing active musicians. In addition, every second, the auditor will clean his container to keep only the one that he heard the past five seconds. It's also possible to etablish a TCP connection to get the musicians container of the auditor (in JSON format)
 
 When creating a musician, we specify the instrument we want him to play. He will then send a UDP package every second containg his uuid (that as been generated when he has been created) and the sound his instrument (in JSON format). 
 
 ## Configuration
 
 ### Auditor  
+This variables can be found in [`docker/image-auditor/src/config.js`](./docker/image-auditor/src/config.js)
 | ENV. VARIABLE                           | DESC.                                                                          | VALUE        |
 |-----------------------------------------|--------------------------------------------------------------------------------|--------------|
-| NETWORK\.udp.ip                          | Multicast address. We listen to Musician, that will broadcast on this address. | 239.255.22.5 |
+| NETWORK.udp.ip                          | Multicast address. We listen to Musician, that will broadcast on this address. | 239.255.22.5 |
 | NETWORK\.udp.port                        | Same as ip. We need to have the same port on the Musician endpoint.            | 1450         |
 | NETWORK\.tcp.port                        | TCP port where active musicians are sent. Used by the validation protocol.     | 2205         |
 | AUDITOR_CONFIG\.clean_musicians_interval | Time in ms when we update our list of active Musician.                         | 1000         |
 | AUDITOR_CONFIG\.max_musician_delay       | Time in ms, under which a Musician is considered as active.                    | 5000         |
 | INSTRUMENTS                             | For each noise, the instrument that made it.				   | `{"ti-ta-ti":"piano","pouet":"trumpet","trulu":"flute","gzi-gzi":"violin","boum-boum":"drum"}` |
 
-
 ### Musician  
+This variables can be found in [`docker/image-musician/src/config.js`](./docker/image-musician/src/config.js)
 | ENV. VARIABLE                 | DESC.                                                                 | VALUE        |
 |-------------------------------|-----------------------------------------------------------------------|--------------|
 | NETWORK\.udp.ip                | Multicast address. We make music for anyone listening here.           | 239.255.22.5 |
 | NETWORK\.udp.port              | We make music for anyone listening on the combinaison IP:PORT.        | 1450         |
 | MUSICIAN_CONFIG\.play_interval | Delay between each sound a musician will emit a sound if he's active. | 1000         |
 | INSTRUMENTS                   | For each instrument, the noise it produces.                           | `{"piano":"ti-ta-ti", "trumpet":"pouet","flute":"trulu","violin":"gzi-gzi","drum":"boum-boum"}`|
+
+### Images docker
+We have the following docker images. 
+| NAME                          | DESC                                                         |
+|-------------------------------|--------------------------------------------------------------|
+| res/auditor                   | Docker image containing the **Auditor** nodejs application.  |
+| res/musician                  | Docker image containing the **Musician** nodejs application. |
 
 ## Tâche 1 : design the application architecture and protocols. 
 ### How can we represent the system in an architecture diagram, which gives information both about the Docker containers, the communication protocols and the commands?
@@ -106,6 +114,8 @@ var fiveSecondAgo = moment(new Date()).add(-5, 'seconds');
 
 fiveSecondAgo.isBefore(aDatetime)
 ```  
+
+<i>Note: we didn't use `momentjs` because we think it's overkill just two compare two date + the js Date class seems to do the work without any other lib. </i>
 
 ### When and how do we get rid of inactive players?
 We itereate each second on our map of musician and we remove the musicians that didn't emit any sound int the last 5 second.
