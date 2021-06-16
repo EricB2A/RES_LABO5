@@ -35,7 +35,7 @@ We have the following docker images.
 
 TODO: Usage example
 
-## Tâche 1 : design the application architecture and protocols. 
+## Task 1 : design the application architecture and protocols. 
 ### How can we represent the system in an architecture diagram, which gives information both about the Docker containers, the communication protocols and the commands?
 Here's a (simplified) schema representing the entities and how they communicate to each other.
 ![schema](assets/schema.png)
@@ -61,11 +61,11 @@ Inside the UDP receiver/auditor: we use a Map with the uuid of the musician as k
 
 Inside the UDP sender / musician: we also use a js object as dictionary. But in this one, we use the name of the instrument as key (and the sound as value).  
 
-## Tâche 2 : implement a "musician" Node.js application. 
+## Task 2 : implement a "musician" Node.js application. 
 ### In a JavaScript program, if we have an object, how can we serialize it in JSON?
 We can simply call the method `JSON.stringify(yourObject)`.
 ### What is npm?
-As its name states it (Node Package Manager), npm is a package manager for NodeJs.
+As its name states it (Node Package Manager), npm is a dependency manager for NodeJs.
 npm is to Javascript what Meaven is to Java and what Composer is to PHP.
 ### What is the npm install command and what is the purpose of the --save flag?
 The `npm install command` can have two purposes. If you use it without arguments it will simply install the needed packages specified into the `package.json` (which you be presents where you execute the command). If you specified a parameter after the command eg:`npm install trash`, it will install the package [trash](https://www.npmjs.com/package/trash). It will also add the dependency into the package.json for the next installations.
@@ -73,7 +73,7 @@ According to this [Stackoverflow post](https://stackoverflow.com/a/19578808/7657
 
 https://docs.npmjs.com/cli/v7/commands/npm-install#save
 ### How can we use the https://www.npmjs.com/ web site? 
-To find packages or to read the docs. 
+To find packages or to read the docs.    
 ### In JavaScript, how can we generate a UUID compliant with RFC4122 ?  
 We use the package [uuid](https://www.npmjs.com/package/uuid) that seems compliant with the [RFC4122](https://www.ietf.org/rfc/rfc4122.txt).
 ### In Node.js, how can we execute a function on a periodic basis?
@@ -93,7 +93,7 @@ So, if we run `node musician.js didgeridoo`, process.argv contains the following
 2: didgeridoo
 ```
 
-## Tâche 3: package the "musician" app in a Docker image. 
+## Task 3: package the "musician" app in a Docker image. 
 ### How do we define and build our own Docker image?
 We use [Dockerfiles](https://docs.docker.com/engine/reference/builder/) to build images and run them as container.
 ### How can we use the ENTRYPOINT statement in our Dockerfile?
