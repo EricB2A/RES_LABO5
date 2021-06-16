@@ -105,8 +105,8 @@ We can use the command `$ docker ps`
 ### How do we stop/kill one running container?
 We can kill a container by using the command `$ docker kill <container/name>` the container name can be found by using the `$ docker ps` command
 ### How can we check that our running containers are effectively sending UDP datagrams?
-We can use `console.log()`.
-TODO: Pas sûr de répondre à la question
+We can open Wireshark and to read the sent packets in the docker network. 
+![Wireshark](./assets/wireshark.png). As we can see in the highlighted part (bottom of the image), the data of the musician are present.
 
 ## Tâche 4: implement an "auditor" Node.js application. 
 ### With Node.js, how can we listen for UDP datagrams in a multicast group?
