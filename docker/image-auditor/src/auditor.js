@@ -20,9 +20,11 @@ udpSocket.bind(NETWORK.udp.port, () => {
  */
 udpSocket.on("message", (message) => {
     let msg = JSON.parse(message);
+    const activeSince = musicians.has(msg.uuid) ? musicians.get(msg.uuid).activeSince : new Date()
     musicians.set(msg.uuid, {
         instrument: INSTRUMENTS[msg.sound],
         lastMsg: new Date(),
+        activeSince: activeSince
     });
 });
 
@@ -40,7 +42,7 @@ tcpServer.on("connection", (tcpSocket) => {
         aryMusicians.push({
             uuid: k,
             instrument: v.instrument,
-            activeSince: v.lastMsg,
+            activeSince: v.activeSince,
         });
     });
     tcpSocket.write(JSON.stringify(aryMusicians));
