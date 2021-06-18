@@ -33,8 +33,6 @@ We have the following docker images.
 | res/auditor                   | Docker image containing the **Auditor** nodejs application.  |
 | res/musician                  | Docker image containing the **Musician** nodejs application. |
 
-TODO: Usage example
-
 ## Task 1 : design the application architecture and protocols. 
 ### How can we represent the system in an architecture diagram, which gives information both about the Docker containers, the communication protocols and the commands?
 Here's a (simplified) schema representing the entities and how they communicate to each other.
